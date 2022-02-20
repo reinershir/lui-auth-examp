@@ -1,0 +1,43 @@
+server:
+  port: 8080
+  
+spring: 
+  application:
+    name: lui-auth-examp
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:5432/public
+    username: postgres
+    password: yourpassword
+    
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    timeout: 3000
+    pool:
+      max-active: 32
+      max-idle: 8
+      min-idle: 4
+
+mybatis-plus:
+  global-config:
+    db-config:
+      schema: public
+  typeAliasesPackage: io.github.reiner.model
+  configuration:
+    cache: true 
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+logging: 
+  file:
+    name: ./logs/${spring.application.name}-log.log
+
+lui-auth:
+  authrizationConfig: 
+    administratorId: 1  #超级管理员的ID,当用户ID与其匹配时该用户自动获得所有权限
+    tokenSalt: defaultToken
+  intergrateConfig: 
+    enable: true  #使用集成的角色、菜单管理
+  securityConfig:
+    enableRequestLog: true #开启请求拦截打印日志
